@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MegaSearch</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#101827;
+ color:white;
+ text-align:center;
+ min-height:100vh;
+}
+header{padding:45px 15px 20px}
+h1{font-size:48px;color:#45a3ff;margin-bottom:10px}
+p{color:#b8c5d8}
+.search{
+ display:flex;
+ max-width:700px;
+ margin:30px auto;
+ padding:8px;
+ background:#fff;
+ border-radius:40px;
+}
+input{
+ flex:1;
+ border:0;
+ outline:0;
+ padding:14px;
+ font-size:17px;
+ border-radius:30px;
+ min-width:0;
+}
+button{
+ border:0;
+ background:#1685ef;
+ color:white;
+ padding:13px 22px;
+ border-radius:30px;
+ cursor:pointer;
+ font-size:15px;
+}
+button:hover{background:#0066cc}
+.categories{
+ display:flex;
+ justify-content:center;
+ flex-wrap:wrap;
+ gap:12px;
+ padding:15px;
+}
+.categories button{background:#263750}
+.categories button.active{background:#1685ef}
+.info{margin-top:55px;color:#8394aa}
+footer{margin-top:70px;padding:20px;color:#66788f}
+</style>
+</head>
+<body>
+
+<header>
+<h1>🌐 MegaSearch</h1>
+<p>Wyszukuj wszystko w jednym miejscu</p>
+</header>
+
+<div class="search">
+<input id="query" type="search"
+placeholder="Czego szukasz?"
+onkeydown="if(event.key==='Enter') search()">
+<button onclick="search()">Szukaj 🔎</button>
+</div>
+
+<div class="categories">
+<button class="active" onclick="setEngine('google',this)">🌐 Wszystko</button>
+<button onclick="setEngine('youtube',this)">🎬 Filmy</button>
+<button onclick="setEngine('images',this)">🖼️ Zdjęcia</button>
+<button onclick="setEngine('news',this)">📰 Wiadomości</button>
+<button onclick="setEngine('shopping',this)">🛒 Zakupy</button>
+<button onclick="setEngine('maps',this)">📍 Mapy</button>
+<button onclick="setEngine('wiki',this)">📚 Wiedza</button>
+</div>
+
+<div class="info">
+<h2>Witaj w MegaSearch!</h2>
+<p>Wpisz dowolne hasło i rozpocznij wyszukiwanie.</p>
+</div>
+
+<footer>
+MegaSearch © 2026
+</footer>
+
+<script>
+let engine = "google";
+
+function setEngine(type, button){
+ engine = type;
+ document.querySelectorAll(".categories button")
+ .forEach(b=>b.classList.remove("active"));
+ button.classList.add("active");
+}
+
+function search(){
+ const q = document.getElementById("query").value.trim();
+ if(!q){
+  alert("Wpisz, czego szukasz!");
+  return;
+ }
+
+ const urls = {
+  google:"https://www.google.com/search?q=",
+  youtube:"https://www.youtube.com/results?search_query=",
+  images:"https://www.google.com/search?tbm=isch&q=",
+  news:"https://www.google.com/search?tbm=nws&q=",
+  shopping:"https://www.google.com/search?tbm=shop&q=",
+  maps:"https://www.google.com/maps/search/",
+  wiki:"https://pl.wikipedia.org/w/index.php?search="
+ };
+
+ window.open(urls[engine]+encodeURIComponent(q),"_blank");
+}
+</script>
+
+</body>
+</html>
